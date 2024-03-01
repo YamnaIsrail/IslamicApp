@@ -56,9 +56,10 @@ class _DuaPageState extends State<DuaPage> {
       ),
       body: FutureBuilder<List<Dua>>(
         // Explicitly specify the type parameter
-        future: Repository().getDuaList(),
-        builder: (context, AsyncSnapshot<List<Dua>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          future: Repository().getDuaList() as Future<List<Dua>>?,
+          builder: (context, AsyncSnapshot<List<Dua>> snapshot) {
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(color: primaryColor),
             );
