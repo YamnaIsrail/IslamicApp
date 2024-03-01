@@ -13,8 +13,13 @@ class SurahPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: secondaryColor,
       appBar: AppBar(
-        title: Text(surah.name),
-        backgroundColor: secondaryColor,
+        title: Text(surah.name, style: GoogleFonts.amiri(
+          color: Colors.black,
+          fontSize: 26,
+        ),
+        ),
+        backgroundColor: primaryColor,
+
       ),
       body: ListView.builder(
         itemCount: surah.ayahs.length,

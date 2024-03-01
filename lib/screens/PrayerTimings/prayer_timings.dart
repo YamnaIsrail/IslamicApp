@@ -45,7 +45,8 @@ class _PrayerTimesPageState extends State<PrayerTimesPage> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back),
+          icon: Icon( Icons.arrow_left_rounded,
+            size: 40,),
         ),
         // actions: [
         //   IconButton(

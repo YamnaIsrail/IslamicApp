@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:islam_app/Screens/Home_Screen/Home_screen_components/DailySupplication.dart';
 import 'package:islam_app/Screens/Home_Screen/Home_screen_components/remaining_activity.dart';
+import 'package:islam_app/Screens/Quran/fetch_api.dart';
 import 'package:islam_app/Screens/PrayerTimings/prayer_timings.dart';
 import 'package:islam_app/widgets/footer.dart';
 import 'package:islam_app/widgets/Colors.dart';
 import '../Dua/dua_page.dart';
-import '../Quran/fetch_api.dart';
 import 'Home_screen_components/sehar_iftar_card.dart';
 import 'Home_screen_components/greetings.dart';
 import 'Home_screen_components/icon_cards.dart';
@@ -14,7 +14,7 @@ import 'package:islam_app/Screens/PrayerTimings/services/prayer_time_services.da
 PrayerTimesService prayerService = PrayerTimesService();
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -72,19 +72,58 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(height: 10),
                 Row(
                   children: [
-                    MyCard(
-                      time: seharTime,
-                      title: "Sahar",
+                    Column(
+                      children: [
+                        MyCard(
+                          time: seharTime,
+                          title: "Sahar",
+                        ),
+                        MyCard(
+                          time: iftarTime,
+                          title: "Iftar",
+                        )
+                      ],
                     ),
                     SizedBox(
                       width: 15,
                     ),
-                    Text(
-                      "Daily Remainders",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                    ),
+                    Container(
+                      color: primaryColor,
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                            children: [
+                              Icon(Icons.wb_twilight, size: 30),
+                              SizedBox(width: 30),
+                              Switch(
+                                  value: true, onChanged: (onChanged) {}),
+                            ],
+                          ),
+                          Text(
+                            "Daily Remainders",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                          ),
+                          Container(
+                            color: Color(0xffd7b889),
+                            child: Column(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text('Supplication of the day'),
+                                Text('Fajar timings Alarm'),
+                                Text('Sehar time'),
+                                //Text('data'),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                    // PrayerTimes()
                   ],
                 ),
                 SizedBox(

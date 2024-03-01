@@ -1,16 +1,18 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:islam_app/Screens/Dua/repository.dart';
-import 'package:islam_app/widgets/Colors.dart';
 import 'package:http/http.dart' as http;
-import 'dua_model.dart';
 import 'package:translator/translator.dart';
+import '../../widgets/Colors.dart';
+import 'dua_model.dart';
+import 'repository.dart';
 
 final translator = GoogleTranslator();
 
-// Function to translate Latin to English
 Future<String> translateLatinToEnglish(String latin) async {
   try {
-    // Translate Latin to English
     var translation = await translator.translate(latin, to: 'en');
     return translation.text ?? latin;
   } catch (e) {
@@ -28,6 +30,14 @@ class DuaPage extends StatefulWidget {
 }
 
 class _DuaPageState extends State<DuaPage> {
+  late Future<List<Dua>> _duaListFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _duaListFuture = Repository().getDuaList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,11 +65,9 @@ class _DuaPageState extends State<DuaPage> {
         elevation: 0,
       ),
       body: FutureBuilder<List<Dua>>(
-        // Explicitly specify the type parameter
-          future: Repository().getDuaList() as Future<List<Dua>>?,
-          builder: (context, AsyncSnapshot<List<Dua>> snapshot) {
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
+        future: _duaListFuture,
+        builder: (context, AsyncSnapshot<List<Dua>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(color: primaryColor),
             );
@@ -147,19 +155,16 @@ class _DuaPageState extends State<DuaPage> {
                                 ),
                                 SizedBox(height: 10),
                                 FutureBuilder<String>(
-                                  future:
-                                      translateLatinToEnglish(data.translation),
+                                  future: translateLatinToEnglish(data.translation),
                                   builder: (context, translationSnapshot) {
                                     if (translationSnapshot.connectionState ==
                                         ConnectionState.waiting) {
-                                      return CircularProgressIndicator(
-                                          color: primaryColor);
+                                      return CircularProgressIndicator(color: primaryColor);
                                     } else if (translationSnapshot.hasError) {
                                       return Text(
                                           'Error translating translation: ${translationSnapshot.error}');
                                     } else {
-                                      final translatedTranslation =
-                                          translationSnapshot.data!;
+                                      final translatedTranslation = translationSnapshot.data!;
                                       return Text(
                                         translatedTranslation,
                                         style: TextStyle(
@@ -186,3 +191,4 @@ class _DuaPageState extends State<DuaPage> {
     );
   }
 }
+

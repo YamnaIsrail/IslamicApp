@@ -44,6 +44,13 @@ class _QuranApiState extends State<QuranApi> {
         appBar: AppBar(
           title: Text('Quran Data'),
           backgroundColor: primaryColor,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon( Icons.arrow_left_rounded,
+              size: 40,),
+          ),
         ),
         body: _quranData != null
             ?
