@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:islam_app/Location/location_permission_page.dart';
 import 'package:islam_app/Screens/alarm/alarm.dart';
 
 class myFooter extends StatefulWidget {
@@ -22,7 +23,7 @@ class _myFooterState extends State<myFooter> {
         ),
         FloatingActionButton(
           onPressed: () {
-          //  Navigator.push(context, MaterialPageRoute(builder: (builder)=> QiblaDirectionPage()));
+            Navigator.push(context, MaterialPageRoute(builder: (builder)=> LocationPermissionWidget()));
           },
           child: Icon(Icons.location_pin),
         ),

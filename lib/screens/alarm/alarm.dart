@@ -22,7 +22,7 @@ class _alarmState extends State<alarm> {
       appBar: AppBar(
         title: const Text('Alarms'),
         centerTitle: true,
-        backgroundColor:  Color(0xff228bb9),
+        backgroundColor:  primaryColor,
 
       ),
       body: Container(
